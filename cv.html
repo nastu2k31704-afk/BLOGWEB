@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Vũ Đăng Khoa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4a9eff;
+            --secondary: #00d4ff;
+            --accent: #ffa726;
+            --dark: #0a0e27;
+            --darker: #050811;
+            --card-bg: #151b35;
+            --light: #e8eaf6;
+            --gray: #94a3b8;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            line-height: 1.6;
+            color: var(--light);
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(21, 27, 53, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(74, 158, 255, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover { color: var(--secondary); }
+        nav a:hover::after { width: 100%; }
+        nav a.active { color: var(--secondary); }
+        nav a.active::after { width: 100%; }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            border-radius: 2px;
+        }
+
+        /* CV Grid */
+        .cv-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Mặc định 1 cột để giãn rộng */
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .cv-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(74, 158, 255, 0.1);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .cv-card h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .cv-card h2 svg {
+            width: 35px;
+            height: 35px;
+            fill: var(--accent);
+        }
+
+        /* Tùy chỉnh xếp hàng ngang cho Thông tin cá nhân */
+        .info-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            flex: 1;
+            min-width: 200px;
+            padding: 1rem;
+            background: rgba(0, 212, 255, 0.08);
+            border-radius: 10px;
+            border-left: 3px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            background: rgba(0, 212, 255, 0.15);
+            border-left-color: var(--accent);
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--secondary);
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        .info-value {
+            color: var(--light);
+            font-size: 1.05rem;
+        }
+
+        /* Certificates */
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .cert-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .cert-card:hover { transform: scale(1.05); }
+        .cert-card img { width: 100%; height: auto; display: block; }
+
+        .cert-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 1.5rem;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-align: center;
+        }
+
+        .cert-card:hover .cert-overlay { opacity: 1; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active { display: flex; }
+        .modal-content { max-width: 90%; max-height: 90vh; position: relative; }
+        .modal-content img { max-width: 100%; max-height: 90vh; border-radius: 10px; }
+        .modal-close {
+            position: absolute; top: -50px; right: 0;
+            background: white; border: none; width: 40px; height: 40px;
+            border-radius: 50%; font-size: 1.5rem; cursor: pointer;
+        }
+
+        /* Skills & Projects Grid */
+        .sub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background: rgba(0, 212, 255, 0.08);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(74, 158, 255, 0.1);
+        }
+
+        .skill-name { font-weight: 600; margin-bottom: 0.5rem; }
+        .skill-bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; }
+        .skill-progress { height: 100%; background: linear-gradient(90deg, var(--secondary), var(--accent)); }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(74, 158, 255, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-header { background: linear-gradient(135deg, var(--primary), var(--secondary)); padding: 1.5rem; }
+        .project-body { padding: 1.5rem; }
+        .tag { display: inline-block; padding: 0.2rem 0.8rem; background: rgba(0,212,255,0.1); color: var(--secondary); border-radius: 15px; font-size: 0.8rem; margin: 0.2rem; }
+
+        @media (max-width: 768px) {
+            .info-container { flex-direction: column; }
+            .page-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="cv.html" class="active">CV</a></li>
+            <li><a href="blog.html">Blog</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">Hồ sơ cá nhân</h1>
+
+        <div class="cv-grid">
+            <div class="cv-card">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    Thông tin cá nhân
+                </h2>
+                <div class="info-container">
+                    <div class="info-item">
+                        <span class="info-label">Họ và tên</span>
+                        <span class="info-value">Vũ Đăng Khoa</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Ngày sinh</span>
+                        <span class="info-value">17/04/2003</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Trường</span>
+                        <span class="info-value">Đại học Công nghệ TP.HCM (HUTECH)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Số điện thoại</span>
+                        <span class="info-value">0971096404</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Email</span>
+                        <span class="info-value">nastu2k31704@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cv-grid">
+            <div class="cv-card">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
+                    Chứng chỉ
+                </h2>
+                <div class="certificates-grid">
+                    <div class="cert-card" data-cert="1">
+                        <img src="images/java1.png" alt="JS Essentials 1">
+                        <div class="cert-overlay"><p>Xem chi tiết</p></div>
+                    </div>
+                    <div class="cert-card" data-cert="2">
+                        <img src="images/java2.png" alt="JS Essentials 2">
+                        <div class="cert-overlay"><p>Xem chi tiết</p></div>
+                    </div>
+                    <div class="cert-card" data-cert="3">
+                        <img src="images/networkingbasic.png" alt="Networking">
+                        <div class="cert-overlay"><p>Xem chi tiết</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<div class="sub-grid">
+            <div class="cv-card">
+                <h2>Kỹ năng & Ngoại ngữ</h2>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-name">Tiếng Anh (Technical Reading)</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Tiếng Nhật (JLPT N4/N5)</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-name">Network Security (TCP/IP, Firewall)</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Ethical Hacking Tools (Nmap, Burp Suite)</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 70%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Operating Systems (Windows Server, Linux)</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Programming (Python, SQL, C#)</div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 60%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <div class="cv-card">
+                <h2>Dự án tiêu biểu</h2>
+                <div class="project-card">
+                    <div class="project-header"><h3>Windows-based Integrated Management System.</h3></div>
+                    <div class="project-body">
+                        <p>Hệ Thống Quản Lý Internet Cafe.</p>
+                        <div class="project-tags"><span class="tag">C# / .NET</span><span class="tag">SQL Server</span><span class="tag">WinForms</span></div>
+                    </div>
+                    <div class="project-header"><h3>TravelStay: Smart Booking & Destination Discovery App</h3></div>
+                    <div class="project-body">
+                        <p>Hệ thống đặt phòng du lịch tích hợp tìm kiếm và quản lý lịch trình trên thiết bị di động.</p>
+                        <div class="project-tags">
+                            <span class="tag">Android/Kotlin</span>
+                            <span class="tag">Firebase</span>
+                            <span class="tag">Material Design</span>
+                        </div>
+                    </div>
+                    <div class="project-header"><h3>Network Security Analysis: MITM & DNS Spoofing Simulation</h3></div>
+                    <div class="project-body">
+                        <p>Nghiên cứu và mô phỏng tấn công giả mạo DNS trong môi trường mạng cục bộ để đánh giá lỗ hổng giao thức.</p>
+                        <div class="project-tags">
+                            <span class="tag">Kali Linux</span>
+                            <span class="tag">Ettercap/Bettercap</span>
+                            <span class="tag">Wireshark</span>
+                            <span class="tag">Network Defense</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="certModal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <img id="certImage" src="" alt="Certificate">
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('certModal');
+        const modalImg = document.getElementById('certImage');
+        const certCards = document.querySelectorAll('.cert-card');
+        const closeBtn = document.querySelector('.modal-close');
+
+        const certMap = {
+            '1': { full: 'images/JV1.png' },
+            '2': { full: 'images/JV2.png' },
+            '3': { full: 'images/NWB.png' }
+        };
+
+        certCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const certNum = this.getAttribute('data-cert');
+                modalImg.src = certMap[certNum].full;
+                modal.classList.add('active');
+            });
+        });
+
+        closeBtn.onclick = () => modal.classList.remove('active');
+        window.onclick = (e) => { if(e.target === modal) modal.classList.remove('active'); }
+    </script>
+</body>
+</html>
+```.

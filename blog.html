@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Vũ Đăng Khoa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4a9eff;
+            --secondary: #00d4ff;
+            --accent: #ffa726;
+            --dark: #0a0e27;
+            --darker: #050811;
+            --card-bg: #151b35;
+            --light: #e8eaf6;
+            --gray: #94a3b8;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            line-height: 1.6;
+            color: var(--light);
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(21, 27, 53, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(74, 158, 255, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--secondary);
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 1rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            gap: 2.5rem;
+        }
+
+        .blog-post {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: fadeInUp 0.6s ease-out;
+            border: 2px solid rgba(74, 158, 255, 0.1);
+        }
+
+        .blog-post:hover {
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.2);
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .blog-post.expanded {
+            cursor: default;
+            border-color: var(--secondary);
+        }
+
+        .blog-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+
+        .blog-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .blog-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        .blog-title-wrapper {
+            flex: 1;
+        }
+
+        .blog-post h3 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .blog-meta {
+            color: var(--gray);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .blog-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .blog-excerpt {
+            color: var(--light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .blog-full {
+            display: none;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid rgba(0, 212, 255, 0.2);
+            line-height: 1.9;
+            color: var(--gray);
+            font-size: 1.05rem;
+        }
+
+        .blog-full.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .blog-full p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-full strong {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .read-more {
+            color: var(--secondary);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            padding: 0.8rem 1.5rem;
+            background: rgba(0, 212, 255, 0.15);
+            border-radius: 50px;
+            font-size: 1rem;
+            border: 1px solid rgba(74, 158, 255, 0.2);
+        }
+
+        .read-more:hover {
+            gap: 1rem;
+            background: var(--secondary);
+            color: var(--dark);
+            border-color: var(--secondary);
+        }
+
+        .read-more::after {
+            content: '→';
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .read-more.expanded::after {
+            content: '↑';
+        }
+
+        .read-more:hover::after {
+            transform: translateX(5px);
+        }
+
+        .read-more.expanded:hover::after {
+            transform: translateY(-3px);
+        }
+
+        /* Category Tags */
+        .blog-category {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, var(--accent), #e67e22);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .blog-post h3 {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .blog-header {
+                flex-direction: column;
+            }
+
+            .blog-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .blog-icon svg {
+                width: 28px;
+                height: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="cv.html">CV</a></li>
+            <li><a href="blog.html" class="active">Blog</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">Blog - Con Đường Học Vấn Của Sinh Viên Đại Học</h1>
+        <p class="page-subtitle">Chia sẻ kiến thức và trải nghiệm trong hành trình học đại học</p>
+
+        <div class="blog-grid">
+    <div class="blog-post" data-post="2">
+        <div class="blog-header">
+            <div class="blog-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <div class="blog-title-wrapper">
+                <span class="blog-category" style="background-color: #e67e22;">Tâm sự</span>
+                <h3>Suýt chút nữa tôi đã trở thành kẻ bỏ cuộc: Câu chuyện năm thứ 2</h3>
+                <div class="blog-meta">
+                    <span>📅 17/12/2025</span>
+                    <span>⏱️ 4 phút đọc</span>
+                    <span>👤 Vũ Đăng Khoa</span>
+                </div>
+            </div>
+        </div>
+        <p class="blog-excerpt">
+            Giữa những bộn bề của đồ án và lý thuyết, tôi đã từng đứng trước quyết định: Tiếp tục hay dừng lại để đi làm phụ giúp mẹ...
+        </p>
+        <div class="blog-full">
+            <p>Gia đình tôi không khá giả. Nhìn mẹ vất vả sớm khuya để lo học phí, tôi cảm thấy tội lỗi vô cùng. Lúc đó, ý nghĩ "Nghỉ học đi làm để phụ mẹ" luôn thường trực trong đầu. Tôi muốn kiếm tiền ngay, muốn giảm bớt gánh nặng trên vai người phụ nữ tôi thương nhất.</p>
+            <p><strong>Bước ngoặt từ lời khuyên:</strong> Khi tôi bày tỏ ý định, mẹ không hề đồng ý. Mẹ nói: "Đời mẹ đã khổ vì thiếu cái chữ, mẹ không muốn con giống mẹ. Chỉ có học mới giúp con đi xa và giúp gia đình mình bền vững hơn". Câu nói đó như một cái tát làm tôi tỉnh ngộ.</p>
+            <p>Tôi nhận ra, nếu bỏ học giữa chừng, tôi chỉ giúp mẹ được vài ba triệu mỗi tháng, nhưng nếu có tấm bằng An toàn thông tin, tôi có thể thay đổi cả tương lai của gia đình.</p>
+        </div>
+        <button class="read-more">Đọc thêm</button>
+    </div>
+
+    <div class="blog-post" data-post="3">
+        <div class="blog-header">
+            <div class="blog-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <div class="blog-title-wrapper">
+                <span class="blog-category" style="background-color: #e74c3c;">Cảnh báo</span>
+                <h3>Hệ lụy của một học kỳ "Bỏ ngỏ" – Bài học về môn tiên quyết</h3>
+                <div class="blog-meta">
+                    <span>📅 17/12/2025</span>
+                    <span>⏱️ 3 phút đọc</span>
+                    <span>👤 Vũ Đăng Khoa</span>
+                </div>
+            </div>
+        </div>
+        <p class="blog-excerpt">
+            Tại sao tôi lại ra trường trễ hạn? Sai lầm không nằm ở năng lực, mà nằm ở việc coi thường các môn tiên quyết tại HUTECH...
+        </p>
+        <div class="blog-full">
+            <p>Trong ngành Công nghệ (đặc biệt là DATA và Security), các môn học được thiết kế theo dạng mắt xích. Khi tôi bỏ lỡ 1-2 môn cốt lõi ở năm 2, tôi không thể đăng ký các môn tiếp theo ở năm 3 và năm 4.</p>
+            <p><strong>Lời khuyên cho khóa dưới:</strong></p>
+            <ul>
+                <li><strong>Lập kế hoạch học tập:</strong> Tuyệt đối không để rớt hoặc bỏ qua môn cơ sở ngành.</li>
+                <li><strong>Đừng để cảm xúc lấn át:</strong> Một phút bốc đồng muốn nghỉ học có thể khiến bạn mất thêm 1-2 năm để làm lại.</li>
+                <li><strong>Theo dõi lộ trình:</strong> Hãy kiểm tra kỹ sơ đồ môn tiên quyết của khoa thường xuyên.</li>
+            </ul>
+            <p>Ra trường chậm không phải là dấu chấm hết, nhưng nó là bài học đắt giá về việc quản lý kế hoạch cuộc đời.</p>
+        </div>
+        <button class="read-more">Đọc thêm</button>
+    </div>
+
+    <div class="blog-post" data-post="4">
+        <div class="blog-header">
+            <div class="blog-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <div class="blog-title-wrapper">
+                <span class="blog-category" style="background-color: #f1c40f;">Trải nghiệm</span>
+                <h3>Mất 500k và bài học đầu đời về lừa đảo việc làm</h3>
+                <div class="blog-meta">
+                    <span>📅 17/12/2025</span>
+                    <span>⏱️ 5 phút đọc</span>
+                    <span>👤 Vũ Đăng Khoa</span>
+                </div>
+            </div>
+        </div>
+        <p class="blog-excerpt">
+            Là sinh viên An toàn thông tin nhưng tôi vẫn bị lừa. Một câu chuyện dở khóc dở cười về cái bẫy "Việc nhẹ lương cao"...
+        </p>
+        <div class="blog-full">
+            <p>Tôi thấy một mẩu tin: "Nhập liệu tại nhà, lương 200k/buổi". Họ yêu cầu tôi đóng 500k "phí làm thẻ". Vì đang cần tiền phụ mẹ, tôi đã chuyển khoản ngay mà không suy nghĩ.</p>
+            <p><strong>Dấu hiệu nhận biết lừa đảo:</strong></p>
+            <p>1. Yêu cầu nộp tiền trước khi đi làm (dưới bất kỳ hình thức nào).</p>
+            <p>2. Mức lương quá cao so với tính chất công việc đơn giản.</p>
+            <p>3. Không có địa chỉ văn phòng hoặc hợp đồng rõ ràng.</p>
+            <p>Dù mất tiền, nhưng đây là bài học thực tế nhất về bảo mật con người mà tôi từng học được.</p>
+        </div>
+        <button class="read-more">Đọc thêm</button>
+    </div>
+
+    <div class="blog-post" data-post="5">
+        <div class="blog-header">
+            <div class="blog-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <div class="blog-title-wrapper">
+                <span class="blog-category" style="background-color: #9b59b6;">Cảm xúc</span>
+                <h3>Chênh vênh tuổi 23 – Khi bạn bè đã đi làm, còn tôi vẫn ở HUTECH</h3>
+                <div class="blog-meta">
+                    <span>📅 18/12/2025</span>
+                    <span>⏱️ 4 phút đọc</span>
+                    <span>👤 Vũ Đăng Khoa</span>
+                </div>
+            </div>
+        </div>
+        <p class="blog-excerpt">
+            Nhìn bạn bè lớp 21DATA1 đăng ảnh check-in văn phòng, tôi tự hỏi mình có đang thất bại không?
+        </p>
+        <div class="blog-full">
+            <p>Cảm giác tụt lại phía sau rất đáng sợ. Nhưng tôi học được rằng mỗi người có một "múi giờ" thành công riêng. Thay vì tự ti, tôi dùng năm thứ 5 này để học sâu hơn về chuyên ngành An toàn thông tin.</p>
+            <p><strong>Cách tôi vượt qua:</strong> Tắt bớt thông báo mạng xã hội, tập trung vào đồ án và tin tưởng vào lộ trình của chính mình. So sánh mình với hôm qua, đừng so với người khác.</p>
+        </div>
+        <button class="read-more">Đọc thêm</button>
+    </div>
+
+    <div class="blog-post" data-post="6">
+        <div class="blog-header">
+            <div class="blog-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <div class="blog-title-wrapper">
+                <span class="blog-category" style="background-color: #34495e;">Chuyên ngành</span>
+                <h3>Security: Lỗ hổng lớn nhất nằm ở con người</h3>
+                <div class="blog-meta">
+                    <span>📅 19/12/2025</span>
+                    <span>⏱️ 6 phút đọc</span>
+                    <span>👤 Vũ Đăng Khoa</span>
+                </div>
+            </div>
+        </div>
+        <p class="blog-excerpt">
+            Từ vụ mất 500k, tôi nhận ra Social Engineering mạnh mẽ thế nào. Hacker không chỉ bẻ khóa code, chúng bẻ khóa cả lòng tin...
+        </p>
+        <div class="blog-full">
+            <p>Kẻ lừa đảo tấn công vào lòng tham và sự nôn nóng của sinh viên. Là sinh viên ATTT, tôi khuyên các bạn hãy áp dụng nguyên tắc <strong>Zero Trust</strong> (Không bao giờ tin tưởng, luôn luôn xác minh) ngay cả trong cuộc sống hàng ngày, không chỉ trong kỹ thuật.</p>
+        </div>
+        <button class="read-more">Đọc thêm</button>
+    </div>
+
+    <div class="blog-post" data-post="7">
+        <div class="blog-header">
+            <div class="blog-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <div class="blog-title-wrapper">
+                <span class="blog-category" style="background-color: #2ecc71;">Kỷ niệm</span>
+                <h3>Góc nhìn của sinh viên năm 5: HUTECH trong tôi là gì?</h3>
+                <div class="blog-meta">
+                    <span>📅 19/12/2025</span>
+                    <span>⏱️ 4 phút đọc</span>
+                    <span>👤 Vũ Đăng Khoa</span>
+                </div>
+            </div>
+        </div>
+        <p class="blog-excerpt">
+            5 năm gắn bó với cơ sở HUTECH, từ những ngày năm nhất bỡ ngỡ đến khi là "anh già" năm 5...
+        </p>
+        <div class="blog-full">
+            <p>Tôi yêu thư viện, yêu cách thầy cô tạo điều kiện cho những sinh viên trễ khóa như tôi được hoàn thành nốt con đường học vấn. HUTECH không chỉ dạy kiến thức, mà còn dạy tôi cách kiên trì sau những vấp ngã.</p>
+        </div>
+        <button class="read-more">Đọc thêm</button>
+    </div>
+
+    <div class="blog-post" data-post="8">
+        <div class="blog-header">
+            <div class="blog-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <div class="blog-title-wrapper">
+                <span class="blog-category" style="background-color: #1abc9c;">Kiến thức</span>
+                <h3>Cẩm nang bảo mật thông tin cá nhân cho tân sinh viên</h3>
+                <div class="blog-meta">
+                    <span>📅 20/12/2025</span>
+                    <span>⏱️ 5 phút đọc</span>
+                    <span>👤 Vũ Đăng Khoa</span>
+                </div>
+            </div>
+        </div>
+        <p class="blog-excerpt">
+            MSSV, CCCD, Email sinh viên... tất cả đều có thể trở thành công cụ của tội phạm mạng nếu bạn không biết bảo vệ...
+        </p>
+        <div class="blog-full">
+            <p>Đừng công khai MSSV lên mạng xã hội. Hãy sử dụng xác thực 2 lớp (2FA) cho email trường và tránh xa các mạng Wi-Fi công cộng khi thực hiện giao dịch ngân hàng.</p>
+        </div>
+        <button class="read-more">Đọc thêm</button>
+    </div>
+
+    <div class="blog-post" data-post="9">
+        <div class="blog-header">
+            <div class="blog-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <div class="blog-title-wrapper">
+                <span class="blog-category" style="background-color: #f39c12;">Kết thúc</span>
+                <h3>Lời hứa ngày nhận bằng: Cảm ơn mẹ và bản thân</h3>
+                <div class="blog-meta">
+                    <span>📅 01/06/2026</span>
+                    <span>⏱️ 3 phút đọc</span>
+                    <span>👤 Vũ Đăng Khoa</span>
+                </div>
+            </div>
+        </div>
+        <p class="blog-excerpt">
+            Bài viết cuối cùng trong chuỗi hành trình 5 năm. Tấm bằng này không chỉ là của tôi, mà còn là mồ hôi của mẹ...
+        </p>
+        <div class="blog-full">
+            <p>Con sắp làm được rồi mẹ ạ! Cảm ơn mẹ đã giữ con lại trường vào năm thứ 2. Kết thúc một hành trình dài để bắt đầu một chương mới tự tin hơn với chuyên ngành An toàn thông tin.</p>
+        </div>
+        <button class="read-more">Đọc thêm</button>
+    </div>
+    <script>
+        // Blog expand/collapse functionality
+        document.querySelectorAll('.blog-post').forEach(post => {
+            const readMoreBtn = post.querySelector('.read-more');
+            const fullContent = post.querySelector('.blog-full');
+            
+            readMoreBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                // Close all other posts
+                document.querySelectorAll('.blog-post').forEach(otherPost => {
+                    if (otherPost !== post) {
+                        otherPost.querySelector('.blog-full').classList.remove('active');
+                        otherPost.querySelector('.read-more').classList.remove('expanded');
+                        otherPost.querySelector('.read-more').textContent = 'Đọc thêm';
+                        otherPost.classList.remove('expanded');
+                    }
+                });
+                
+                // Toggle current post
+                fullContent.classList.toggle('active');
+                this.classList.toggle('expanded');
+                post.classList.toggle('expanded');
+                
+                if (fullContent.classList.contains('active')) {
+                    this.textContent = 'Thu gọn';
+                    // Scroll to post after expansion
+                    setTimeout(() => {
+                        post.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                } else {
+                    this.textContent = 'Đọc thêm';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
