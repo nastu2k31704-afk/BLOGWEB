@@ -541,32 +541,42 @@
             <h3>Security: Lỗ hổng lớn nhất nằm ở con người</h3>
             <div class="blog-meta">
                 <span>📅 19/12/2025</span>
-                <span>⏱️ 10 phút đọc</span>
+                <span>⏱️ 12 phút đọc</span>
                 <span>👤 Vũ Đăng Khoa</span>
             </div>
         </div>
     </div>
     <p class="blog-excerpt">
-        Từ vụ mất 500k, tôi nhận ra Social Engineering mạnh mẽ thế nào. Hacker không chỉ bẻ khóa code, chúng bẻ khóa cả lòng tin...
+        Từ vụ mất 500k, tôi nhận ra Social Engineering mạnh mẽ thế nào. Hacker không chỉ bẻ khóa code, chúng bẻ khóa cả lòng tin thông qua các công cụ tinh vi...
     </p>
     <div class="blog-full">
-        <p>Trong giới công nghệ, chúng ta thường mải mê nói về những tường lửa kiên cố hay những thuật toán mã hóa phức tạp. Thế nhưng, có một sự thật phũ phàng mà tôi vừa học được qua một vụ mất 500.000 VNĐ: <strong>Hệ thống bảo mật mạnh nhất thế giới cũng vô dụng nếu người vận hành nó bị đánh lừa.</strong></p>
+        <p>Trong bảo mật, chúng ta có câu: <em>"Amateurs hack systems, professionals hack people"</em>. Vụ mất 500k của tôi không đến từ một lỗ hổng Zero-day trong phần mềm, mà nó đến từ sự khai thác triệt để "lỗ hổng tâm lý".</p>
         
-        <h4>1. Social Engineering: Nghệ thuật "hack" tâm trí</h4>
-        <p>Kẻ tấn công không cần tìm lỗ hổng phần mềm, chúng tìm lỗ hổng trong bản năng con người. Chúng sử dụng hai yếu tố tâm lý cực kỳ mạnh mẽ:</p>
+        <h4>1. Vũ khí của Hacker: Không chỉ là Code</h4>
+        <p>Để thực hiện vụ lừa đảo này, kẻ tấn công thường sử dụng các công cụ và kỹ thuật sau:</p>
         <ul>
-            <li><strong>Lòng tham:</strong> Đưa ra một món hời hoặc cơ hội kiếm tiền nhanh.</li>
-            <li><strong>Sự nôn nóng:</strong> Tạo áp lực thời gian khiến nạn nhân không kịp suy nghĩ logic.</li>
+            <li><strong>Phishing Frameworks (như Zphisher hoặc GoPhish):</strong> Tạo ra các trang web giả mạo (Facebook, Ngân hàng) giống 99% bản gốc để thu thập thông tin hoặc tạo lòng tin.</li>
+            <li><strong>Deepfake & AI Voice:</strong> Sử dụng AI để giả dạng giọng nói hoặc hình ảnh người thân, khiến nạn nhân mất cảnh giác hoàn toàn.</li>
+            <li><strong>OSINT (Open Source Intelligence):</strong> Chúng thu thập thông tin từ Facebook, LinkedIn của bạn để xây dựng một kịch bản lừa đảo "đo ni đóng giày" riêng cho bạn.</li>
         </ul>
 
-        <h4>2. Tại sao sinh viên lại là "miếng mồi ngon"?</h4>
-        <p>Kẻ lừa đảo tấn công vào lòng tham và sự nôn nóng của sinh viên. Là sinh viên ATTT, tôi từng tự tin mình có kiến thức, nhưng chính sự chủ quan đó lại là điểm yếu. Chúng không tấn công vào kỹ năng chuyên môn, chúng tấn công vào con người đời thường phía sau bàn phím.</p>
+        <h4>2. Lỗ hổng nằm ở đâu?</h4>
+        <p>Lỗ hổng này được gọi là <strong>Cognitive Bias (Thiên kiến nhận thức)</strong>. Kẻ lừa đảo khai thác sự tin tưởng mù quáng vào các "Authority" (cơ quan chức năng giả mạo) hoặc "Social Proof" (các đánh giá, phản hồi giả mạo) để điều hướng hành vi của chúng ta.</p>
 
-        <h4>3. Bài học về nguyên tắc Zero Trust</h4>
-        <p>Tôi khuyên các bạn hãy áp dụng nguyên tắc <strong>Zero Trust</strong> (Không bao giờ tin tưởng, luôn luôn xác minh) ngay cả trong cuộc sống hàng ngày, không chỉ trong kỹ thuật. Trước mỗi giao dịch hay thông báo lạ, hãy chậm lại một nhịp để xác minh danh tính và nguồn tin.</p>
+        <h4>3. Quy trình xử lý khi bị "dính chưởng" (Incident Response)</h4>
+        <p>Nếu chẳng may bạn nhận ra mình vừa chuyển tiền hoặc lộ thông tin cho kẻ lừa đảo, hãy thực hiện ngay các bước sau:</p>
+        <ol>
+            <li><strong>Isolate (Cách ly):</strong> Ngay lập tức đổi mật khẩu các tài khoản liên quan và khóa thẻ ngân hàng thông qua ứng dụng Mobile Banking.</li>
+            <li><strong>Report (Báo cáo):</strong> Liên hệ với hotline ngân hàng để tra soát giao dịch. Dù cơ hội lấy lại tiền là thấp, nhưng việc này giúp ngân hàng đóng băng tài khoản của kẻ lừa đảo.</li>
+            <li><strong>Evidence (Bằng chứng):</strong> Chụp ảnh toàn bộ tin nhắn, biên lai chuyển tiền và thông tin tài khoản kẻ lừa đảo. Đây là dữ liệu quan trọng nếu cần trình báo cơ quan chức năng.</li>
+            <li><strong>Hardening (Gia cố):</strong> Kích hoạt xác thực 2 lớp (2FA) bằng App (Google Authenticator) thay vì SMS để tránh bị chiếm quyền nhận mã OTP.</li>
+        </ol>
+
+        <h4>4. Lời kết: Zero Trust cho cuộc sống</h4>
+        <p>Là sinh viên ATTT, tôi rút ra rằng: <strong>Đừng bao giờ tin tưởng, luôn luôn xác minh (Never Trust, Always Verify).</strong> Hãy coi mọi lời đề nghị trên mạng là "độc hại" cho đến khi bạn chứng minh được nó an toàn.</p>
         
-        <blockquote>
-            "Con người chính là mắt xích yếu nhất trong mọi hệ thống an ninh. 500k là học phí rẻ để nhận ra giá trị của sự cảnh giác."
+        <blockquote style="border-left: 5px solid #f39c12; padding-left: 15px; font-style: italic;">
+            "Phần mềm có thể vá (patch), nhưng sự hối hận sau khi mất tiền thì không. Hãy tỉnh táo!"
         </blockquote>
     </div>
     <button class="read-more">Đọc thêm</button>
