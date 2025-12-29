@@ -541,42 +541,46 @@
             <h3>Security: Lỗ hổng lớn nhất nằm ở con người</h3>
             <div class="blog-meta">
                 <span>📅 19/12/2025</span>
-                <span>⏱️ 12 phút đọc</span>
+                <span>⏱️ 15 phút đọc</span>
                 <span>👤 Vũ Đăng Khoa</span>
             </div>
         </div>
     </div>
     <p class="blog-excerpt">
-        Từ vụ mất 500k, tôi nhận ra Social Engineering mạnh mẽ thế nào. Hacker không chỉ bẻ khóa code, chúng bẻ khóa cả lòng tin thông qua các công cụ tinh vi...
+        Hacker không chỉ bẻ khóa code, chúng bẻ khóa cả lòng tin thông qua các công cụ tinh vi như SET, Evilginx2 hay kỹ thuật Bypass 2FA...
     </p>
     <div class="blog-full">
-        <p>Trong bảo mật, chúng ta có câu: <em>"Amateurs hack systems, professionals hack people"</em>. Vụ mất 500k của tôi không đến từ một lỗ hổng Zero-day trong phần mềm, mà nó đến từ sự khai thác triệt để "lỗ hổng tâm lý".</p>
+        <p>Trong bảo mật, chúng ta có câu: <em>"Amateurs hack systems, professionals hack people"</em>. Vụ mất 500k của tôi không đến từ một lỗ hổng Zero-day, mà nó đến từ sự khai thác triệt để "lỗ hổng tâm lý" bằng các bộ công cụ tấn công chuyên nghiệp.</p>
         
-        <h4>1. Vũ khí của Hacker: Không chỉ là Code</h4>
-        <p>Để thực hiện vụ lừa đảo này, kẻ tấn công thường sử dụng các công cụ và kỹ thuật sau:</p>
+        <h4>1. Vũ khí của Hacker: Bộ công cụ chuyên ngành</h4>
+        <p>Đằng sau một tin nhắn lừa đảo đơn giản là cả một hệ thống công cụ mà dân ATTT chúng ta thường gọi là <strong>Weaponization</strong>:</p>
         <ul>
-            <li><strong>Phishing Frameworks (như Zphisher hoặc GoPhish):</strong> Tạo ra các trang web giả mạo (Facebook, Ngân hàng) giống 99% bản gốc để thu thập thông tin hoặc tạo lòng tin.</li>
-            <li><strong>Deepfake & AI Voice:</strong> Sử dụng AI để giả dạng giọng nói hoặc hình ảnh người thân, khiến nạn nhân mất cảnh giác hoàn toàn.</li>
-            <li><strong>OSINT (Open Source Intelligence):</strong> Chúng thu thập thông tin từ Facebook, LinkedIn của bạn để xây dựng một kịch bản lừa đảo "đo ni đóng giày" riêng cho bạn.</li>
+            <li><strong>Social-Engineer Toolkit (SET):</strong> Một framework mã nguồn mở cực mạnh trên Kali Linux, cho phép hacker tạo ra các kịch bản tấn công từ Spear Phishing (lừa đảo có mục tiêu) đến tạo các Access Point giả mạo.</li>
+            <li><strong>Evilginx2 (Adversary-in-the-Middle):</strong> Công cụ này không chỉ chiếm mật khẩu mà còn đánh cắp được cả <strong>Session Cookies</strong>, giúp hacker bypass (vượt qua) hoàn toàn lớp bảo mật 2FA (xác thực 2 lớp) mà nạn nhân không hề hay biết.</li>
+            <li><strong>Maltego & Harvester:</strong> Những công cụ <strong>OSINT</strong> mạnh mẽ giúp hacker thu thập mọi dấu vết số của bạn trên Internet (email, số điện thoại, mối quan hệ) để tạo ra một kịch bản lừa đảo cực kỳ thuyết phục.</li>
+            <li><strong>Flipper Zero / Wi-Fi Pineapple:</strong> Các thiết bị phần cứng giúp tấn công vào sự tin tưởng của người dùng đối với các mạng Wi-Fi công cộng hoặc thiết bị ngoại vi.</li>
         </ul>
 
         <h4>2. Lỗ hổng nằm ở đâu?</h4>
-        <p>Lỗ hổng này được gọi là <strong>Cognitive Bias (Thiên kiến nhận thức)</strong>. Kẻ lừa đảo khai thác sự tin tưởng mù quáng vào các "Authority" (cơ quan chức năng giả mạo) hoặc "Social Proof" (các đánh giá, phản hồi giả mạo) để điều hướng hành vi của chúng ta.</p>
+        <p>Về mặt kỹ thuật, đó là lỗ hổng trong <strong>Quy trình xác thực (Authentication Workflow)</strong>. Tuy nhiên, về mặt xã hội, đó là <strong>Cognitive Bias (Thiên kiến nhận thức)</strong>:</p>
+        <ul>
+            <li><strong>Authority Bias:</strong> Sự tin tưởng mù quáng vào các tài khoản giả mạo có "tích xanh" hoặc giả danh cơ quan chức năng.</li>
+            <li><strong>Scarcity & Urgency:</strong> Kỹ thuật đánh vào tâm lý "cơ hội cuối cùng" khiến nạn nhân bỏ qua các bước kiểm tra an toàn cơ bản (Sanitization).</li>
+        </ul>
 
         <h4>3. Quy trình xử lý khi bị "dính chưởng" (Incident Response)</h4>
-        <p>Nếu chẳng may bạn nhận ra mình vừa chuyển tiền hoặc lộ thông tin cho kẻ lừa đảo, hãy thực hiện ngay các bước sau:</p>
         <ol>
-            <li><strong>Isolate (Cách ly):</strong> Ngay lập tức đổi mật khẩu các tài khoản liên quan và khóa thẻ ngân hàng thông qua ứng dụng Mobile Banking.</li>
-            <li><strong>Report (Báo cáo):</strong> Liên hệ với hotline ngân hàng để tra soát giao dịch. Dù cơ hội lấy lại tiền là thấp, nhưng việc này giúp ngân hàng đóng băng tài khoản của kẻ lừa đảo.</li>
-            <li><strong>Evidence (Bằng chứng):</strong> Chụp ảnh toàn bộ tin nhắn, biên lai chuyển tiền và thông tin tài khoản kẻ lừa đảo. Đây là dữ liệu quan trọng nếu cần trình báo cơ quan chức năng.</li>
-            <li><strong>Hardening (Gia cố):</strong> Kích hoạt xác thực 2 lớp (2FA) bằng App (Google Authenticator) thay vì SMS để tránh bị chiếm quyền nhận mã OTP.</li>
+            <li><strong>Isolate (Cách ly):</strong> Đăng xuất tất cả các phiên đăng nhập (Logout all sessions), đổi mật khẩu và khóa thẻ ngay trên app.</li>
+            <li><strong>Report (Báo cáo):</strong> Gửi Ticket cho ngân hàng và nhà cung cấp dịch vụ để đánh dấu giao dịch gian lận.</li>
+            <li><strong>Evidence (Bằng chứng):</strong> Trích xuất Header Email hoặc chụp lại toàn bộ URL lừa đảo để phục vụ phân tích (Analysis).</li>
+            <li><strong>Hardening (Gia cố):</strong> Chuyển từ SMS OTP sang <strong>Hardware Security Keys (như YubiKey)</strong> hoặc Authenticator App để chống lại các cuộc tấn công Adversary-in-the-middle.</li>
         </ol>
 
         <h4>4. Lời kết: Zero Trust cho cuộc sống</h4>
-        <p>Là sinh viên ATTT, tôi rút ra rằng: <strong>Đừng bao giờ tin tưởng, luôn luôn xác minh (Never Trust, Always Verify).</strong> Hãy coi mọi lời đề nghị trên mạng là "độc hại" cho đến khi bạn chứng minh được nó an toàn.</p>
+        <p>Hãy nhớ: <strong>Đừng bao giờ tin tưởng, luôn luôn xác minh (Never Trust, Always Verify).</strong> Một sinh viên ATTT không chỉ giỏi dùng công cụ, mà còn phải giỏi trong việc nhận diện các Vector tấn công nhắm vào chính mình.</p>
         
-        <blockquote style="border-left: 5px solid #f39c12; padding-left: 15px; font-style: italic;">
-            "Phần mềm có thể vá (patch), nhưng sự hối hận sau khi mất tiền thì không. Hãy tỉnh táo!"
+        <blockquote style="border-left: 5px solid #f39c12; padding-left: 15px; font-style: italic; color: #bdc3c7;">
+            "Patching a server is easy, patching human stupidity is impossible. Be the firewall."
         </blockquote>
     </div>
     <button class="read-more">Đọc thêm</button>
